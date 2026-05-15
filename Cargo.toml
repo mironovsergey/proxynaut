@@ -1,0 +1,55 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/proxynaut-core",
+    "crates/proxynaut-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95.0"
+authors = ["Sergey Mironov <sergeymironov@protonmail.com>"]
+license = "MIT"
+repository = "https://github.com/mironovsergey/proxynaut"
+homepage = "https://github.com/mironovsergey/proxynaut"
+readme = "README.md"
+
+[workspace.dependencies]
+# async runtime
+tokio = { version = "1", features = ["full"] }
+
+# ssh
+russh = "0.46"
+russh-keys = "0.46"
+
+# balancer
+hashring = "0.3"
+
+# config and serialization
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+serde_json = "1"
+
+# cli
+clap = { version = "4", features = ["derive"] }
+
+# logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+tracing-appender = "0.2"
+
+# system
+directories = "5"
+interprocess = { version = "2", features = ["tokio"] }
+rpassword = "7"
+
+# errors
+thiserror = "1"
+anyhow = "1"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
